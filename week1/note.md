@@ -44,3 +44,37 @@ With unsupervised learning there is no feedback based on the prediction results.
 Clustering: Take a collection of 1000 essays written on the US Economy, and find a way to automatically group these essays into a small number that are somehow similatr or related by different variables, such as word frequency, sentence length, page count and so on.
 
 Non-clustering: The "Cocktail Party Algorithm", which can find structure in messy data(such as the identification of individual voices and music from a mesh of sounds at a cocktail party).
+
+## Linear Regression with One Variable
+
+### Model Representation
+
+Recall that _regression problems_, we are taking input variables and trying to fit the output onto a _continuous_ expected result function.
+
+Linear regression with one variable is also known as "univariate linear regression."
+
+Univariate linear regression is used when you want to predict a **single output** value y from a **single input** value x. Obviously, we're doing **supervised learning**.
+
+#### The Hypothesis Function
+
+Our hypothesis function has the general form:
+
+$$h_\theta(x) = \theta_0 + \theta_1 x$$
+
+By specifying the $\theta_0$ and $\theta_1$, we can get our estimated output $h_\theta(x)$.
+
+Then, Apparently, every $h_\theta(x)$ is a hypothesis, and what we want to get is the best fit function.
+
+### Cost Function
+
+We can measure the accuracy of the hypothesis function by using a **cost function**. This takes an average of all the results of the hypothesis with inputs from x's compared to the actual output y's.
+
+$$J(\theta_0, \theta_1) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x_i)-y_i)^2$$
+
+To break it apart, it is $\frac{1}{2}\bar{x}$ where $\bar{x}$ is the mean of the squares of $h_\theta(x_i)-y_i$, or the difference between the predicted value and the actual value.
+
+This function also called the "Squared error function", or "Mean squared error". The $\frac{1}{2m}$ is for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$.
+
+Now we are able to concretely measure the accuracy of our predictor function against the correct results we have so that we can predict new results we don't have.
+
+If we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make straight line(defined by $h_\theta(x)$) which passes through this scattered set of data. Our objective is to get the best possible line. The best possible line will be such so that the average squared vertical distances of the scattered points from the line will be the least.
