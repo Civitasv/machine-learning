@@ -78,3 +78,32 @@ This function also called the "Squared error function", or "Mean squared error".
 Now we are able to concretely measure the accuracy of our predictor function against the correct results we have so that we can predict new results we don't have.
 
 If we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make straight line(defined by $h_\theta(x)$) which passes through this scattered set of data. Our objective is to get the best possible line. The best possible line will be such so that the average squared vertical distances of the scattered points from the line will be the least.
+
+### Gradient Descent
+
+Now that we have the hypothesis function and the cost function which is used to measure how well it fits into data set. We still need a way to estimate the parameters in hypothesis function. So the Gradient Descent comes in.
+
+Given the paramters of our hypothesis function, we can get the value of the cost function. And the goal is to get the smallest value of our cost function. The way we do this is by taking the derivative(the tangential line to a function) of our cost function. The slope of the tangent is the derivative at that point and it will give us a direction to move towards. We make steps down the cost function in the direction with the steepest descent, and the size of each step is determined by the parameter $\alpha$, which is called the learning rate.
+
+The gradient descent algorithm is:
+
+repeat until convergence:
+
+$$\theta_j:=\theta_j-\alpha \frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1)$$
+
+where j=0,1
+
+#### Gradient Descent for Linear Regression
+
+When specially applied to the case of linear regression, a new form of the gradient descent equation can be derived. We can substitute our actual cost function and our actual hypothesis funtion and modify the equation to:
+
+repeat until convergence: {
+
+$$\theta_0:=\theta_0−\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x_i)-y_i)$$
+$$\theta_1:=\theta_1−\alpha\frac{1}{m}\sum_{i=1}^m((h_\theta(x_i)-y_i)x_i)$$
+}
+
+where m is the size of the traing set, $\theta_0$ and $\theta_1$ will be changing simultaneously, $x_i$ and $y_i$ are values of the given training set.
+
+The point of all this is that if we start with a guess for our hypothesis and then repeatedly apply these gradient descent equations, our hypothesis will become more and more accurate.
+
