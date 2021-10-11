@@ -91,7 +91,7 @@ repeat until convergence:
 
 $$\theta_j:=\theta_j-\alpha \frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1)$$
 
-where j=0,1
+where $j=0,1$
 
 #### Gradient Descent for Linear Regression
 
@@ -103,7 +103,17 @@ $$\theta_0:=\theta_0−\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x_i)-y_i)$$
 $$\theta_1:=\theta_1−\alpha\frac{1}{m}\sum_{i=1}^m((h_\theta(x_i)-y_i)x_i)$$
 }
 
-where m is the size of the traing set, $\theta_0$ and $\theta_1$ will be changing simultaneously, $x_i$ and $y_i$ are values of the given training set.
+where $m$ is the size of the traing set, $\theta_0$ and $\theta_1$ will be changing simultaneously, $x_i$ and $y_i$ are values of the given training set.
 
 The point of all this is that if we start with a guess for our hypothesis and then repeatedly apply these gradient descent equations, our hypothesis will become more and more accurate.
 
+## Linear Algebra Review
+
+This chapter introduces some basic ideas of linear algebra, including:
+
+1. the difinition of matrix and vector.
+2. addition and scalar multiplication.
+3. matrix-vector multiplication.
+4. matrix-matrix multiplication.
+5. matrix multiplication properties, such as not commutative and associative.
+6. matrix inverse and transpose.
