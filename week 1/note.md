@@ -12,7 +12,9 @@ Two difinitions are offered.
 For example, the playing checkers program:
 
 E: the experience of playing many games of checkers
+
 T: the task of playing checkers
+
 P: the probability that the program will win the next game
 
 Machine Learing problem contains two broad categories: Supervised Learning and Unsupervised Learning
