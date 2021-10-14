@@ -156,3 +156,41 @@ For example, if our hypothesis function is $h_\theta(x) = \theta_0 + \theta_1 x$
 One important thing to keep in mind is, if you choose your features this way then feature scaling becomes very important.
 
 eg. if $x_1$ has range 1 - 1000 then range of $x_1^2$ becomes 1 - 1000000 and that of $x_1^3$ becomes 1 - 1000000000.
+
+## Normal Equation
+
+The "Normal Equation" is a method of finding the optimum theta **without iteration**.
+
+$$\theta=(X^TX)^{-1}X^Ty$$
+
+There is **no need** to do feature scaling with the normal equation.
+
+Mathematical proof of the Normal equation requires knowledge of linear algebra and is fairly involved, so you do not need to worry about the details.
+
+Proofs are available at these links for those who are interested:
+
+<https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)>
+
+<http://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression>
+
+The following is a comparison of gradient descent and the normal equation:
+
+|      Gradient Descent      |                  Normal Equation                  |
+| :------------------------: | :-----------------------------------------------: |
+|    Need to choose alpha    |              No need to choose alpha              |
+|   Needs many iterations    |                No need to iterate                 |
+|         $O(kn^2)$          | $O(n^3)$, cause need to calcute inverse of $X^TX$ |
+| Works well when n is large |              Slow if n is very large              |
+
+With the normal equation, computing the inversion has complexity $O(n^3)$, So if we have a very large number of features, the normal equation will be slow. In practice, when n exceeds 10,000 it might be a good time to go from a normal solution to an iterative process.
+
+### Normal Equation Noninvertibility
+
+When implementing the normal equation in octave we want to use the 'pinv' function rather than the 'inv'.
+
+$X^TX$ may be **noninvertible**. The common causes are:
+
+- Redundant features, where two features are very closely related
+- Too many features(m<=n). In this case, delete some features or use "regularization"(to be explained in a later lesson).
+
+In fact, the deep reason is that there is no solution to the function group.
