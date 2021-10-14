@@ -31,7 +31,7 @@ $$
 
 Note that for convenience reasons in this course Mr.Ng assumes $x_0^{(i)} = 1$ for $(i\in1,...,m)$
 
-The training examples are stored in X row-wise, like suck:
+The training examples are stored in X row-wise, like such:
 
 $$
 X = \left[\begin{matrix}
