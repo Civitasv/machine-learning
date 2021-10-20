@@ -30,9 +30,9 @@ $g(z) = \frac{1}{1+e^{-z}}$
 
 The function g(z), shown here, maps any real number to the (0, 1) interval, making it useful for transforming an arbitrary-valued function into a function better suited for classification.
 
-Then $h\theta(x)$ will give us the **probability** that our output is 1. For example, $h\theta(x) = 0.7$ gives us the probability of 70% that our output is 1.
+Then $h_\theta(x)$ will give us the **probability** that our output is 1. For example, $h_\theta(x) = 0.7$ gives us the probability of 70% that our output is 1.
 
-$h\theta(x) = P(y=1|x;\theta) = 1-P(y=0|x;\theta)$
+$h_\theta(x) = P(y=1|x;\theta) = 1-P(y=0|x;\theta)$
 
 $P(y=0|x;\theta)+P(y=1|x;\theta) = 1$
 
@@ -143,3 +143,128 @@ options = optimset('GradObj', 'on', 'MaxIter', 100);
 ```
 
 We give to the function "fminunc()" our cost function, our initial vector of theta values, and the "options" object that we created beforehand.
+
+### Multiclass Classification: One-vs-all
+
+Now we will approach the classification of data into more than two categories. Instead of y={0,1}, we will expand our definition so that y={0,1,...,n}.
+
+In this case we divide our problem into n+1 binary classification problems; in each one, we predict the probability that 'y' is a member of one of our classes.
+
+$y\in {0,1,...,n} \\
+h_\theta^{(0)} = P(y=0|x;\theta) \\
+h_\theta^{(1)} = P(y=1|x;\theta) \\
+... \\
+h_\theta^{(n)} = P(y=n|x;\theta) \\
+prediction = max_i(h_\theta^{(i)}(x))$
+
+We are basically choosing one class and then lumping all the others into a single second class. We do this repeatedly, applying binary logistic regression to each case, and then use the hypothesis that returned the highest value as our prediction.
+
+## Regularization
+
+**The Problem of Overfitting:** High bias or underfitting is when the form of our hypothesis function h maps poorly to the trend of the data. It is usually caused by a function that is too simple or uses too few features. eg. if we take $h_\theta(x) = \theta_0+\theta_1x_1+\theta_2x_2$ then we are making an initial assumption that a linear model will fit the training data well and will be able to generalize but actually that may not be the case.
+
+At the other extreme, overfitting or high variance is caused by a hypothesis function that fits the avaliable data but does not generalize well to predict new data. It is usually caused by a complicated function that creates a lot of unnecessary curves and angles unrelated to the data.
+
+This terminology is applied to both linear and logistic regression. There are two main options to address the issue of overfitting:
+
+1. Reduce the number of features:
+
+   a) Manually select which features to keep.
+
+   b) Use a model selection algorithm(studied later in the course).
+
+2. Regularization
+
+Keep all the features, but reduce the parameters $\theta_j$.
+
+Regularization works well when we have a lot of slightly useful features.
+
+### Regularized Linear Regression
+
+We can apply regularization to both linear regression and logistic regression. We will approach linear regression first.
+
+#### Cost Function
+
+If we have overfitting from our hypothesis function, we can reduce the weight that some of the terms on our function carry by increasing their cost.
+
+Say we wanted to make the following function more quadratic:
+
+$\theta_0+\theta_1x+\theta_2x^2+\theta_3x^3+\theta_4x^4$
+
+We'll want to eliminate the influence of $\theta_3x^3$ and $\theta_4x^4$. Without actually getting rid of these features or changing the form of our hypothesis, we can instead modify our cost function:
+
+$min_\theta \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})^2 + 1000\theta^3+1000\theta^4$
+
+We've added two extra terms at the end to inflate the cost of $\theta_3$ and $\theta_4$. Now, in order for the cost function to get close to zero, we will have to reduce the values of $\theta_3$ and $\theta_4$ to near zero.
+
+Using this method, we could also regularize all of our theta parameters in a single summation:
+
+$min_\theta\frac{1}{2m}[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\lambda\sum_{j=1}^n\theta_j^2]$
+
+The λ, or lambda, is the regularization parameter. It determines how much the costs of our theta parameters are inflated. You can visualize the effect of regularization in this interactive plot : <https://www.desmos.com/calculator/1hexc8ntqp>
+
+Using the above cost function with the extra summation, we can smooth the output of our hypothesis function to reduce overfitting. If lambda is chosen to be too large, it may smooth out the function too much and cause underfitting.
+
+#### Gradient Descent
+
+We will modify our gradient function to separate out $\theta_0$ from the rest of the parameters because we do not want to penalize $\theta_0$.
+
+$Repeat \{ \\
+\theta_0 := \theta_0 - \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_0^{(i)} \\
+\theta_j := \theta_j - \alpha[(\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+\frac{\lambda}{m}\theta_j] \ \ j \in \{1,2,...,n\} \\
+\}$
+
+The term $\frac{\lambda}{m}\theta_j$ performs our regularization.
+
+With some manipulation our update rule can also be represented as:
+
+$\theta_j := \theta_j(1-\alpha\frac{\lambda}{m}) - \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}$
+
+The first term in the above equation, $1-\alpha\frac{\lambda}{m}$ will always be less than 1. Intuitively you can see it as reducing the value of $\theta_j$ by some amount on every update.
+
+Notice that the second term is now exactly the same as it was before.
+
+### Normal Equation
+
+Now let's approach regularization using the alternate method of the non-iterative normal equation.
+
+To add in regularization, the equation is the same as our original, except that we add another term inside the parentheses:
+
+$\theta = (X^TX+\lambda L)^{-1}X^Ty \\
+where \ L =\left [ \begin{matrix}
+   0 &  &&  &&\\
+    & 1 &&&&  \\
+    &  & 1&&& \\
+    &&&.&& \\
+    &&&&.& \\
+    &&&&&1 \\
+  \end{matrix} \right]$
+
+L is a matrix with 0 at the top left and 1's down the diagonal, with 0's everywhere else. It should have dimension (n+1)×(n+1). Intuitively, this is the identity matrix (though we are not including $x_0$), multiplied with a single real number λ.
+
+Recall that if $m \le n$, then $X^TX$ is non-invertible. However, when we add the term $\lambda L$, then $X^TX+\lambda L$ becomes invertible.
+
+### Regularized Logistic Regression
+
+We can regularized logistic regression in a similar way that we regularize linear regression. Let's start with the cost function.
+
+#### Cost Function
+
+Recall that our cost function for logistic regression was:
+
+$J(\theta) = -\frac{1}{m}\sum_{i=1}^m[y^{(i)}log(h_\theta(x^{(i)})) + (1-y^{(i)})log(1-h_\theta(x^{(i)}))]$
+
+We can regularized this equation by adding a term to the end:
+
+$J(\theta) = -\frac{1}{m}\sum_{i=1}^m[y^{(i)}log(h_\theta(x^{(i)})) + (1-y^{(i)})log(1-h_\theta(x^{(i)}))] + \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2$
+
+#### Gradient Descent
+
+Just like with linear regression, we will want to separately update $\theta_0$ and the rest of the parameters because we do not want to regularize $\theta_0$.
+
+$Repeat \{ \\
+\theta_0 := \theta_0 - \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_0^{(i)} \\
+\theta_j := \theta_j - \alpha[(\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+\frac{\lambda}{m}\theta_j] \ \ j \in \{1,2,...,n\} \\
+\}$
+
+This is identical to the gradient descent function presented for linear regression.
