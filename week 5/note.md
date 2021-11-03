@@ -219,3 +219,7 @@ for i = 1:m,
    Perform forward propagation and backpropagation using example (x(i),y(i))
    (Get activations a(l) and delta terms d(l) for l = 2,...,L
 ```
+
+## BP Proof
+
+TODO
