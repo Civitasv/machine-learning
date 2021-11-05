@@ -92,7 +92,7 @@ For training example t=1 to m:
 - Perform forward propagation to compute $a^{(l)}$ for l=2,3,...,L
 - Using $y^{(t)}$, compute $\delta^{(L)} = a^{(L)} - y^{(t)}$
 - Compute $\delta^{(L-1)}, \delta^{(L-2)},...,\delta^{2}$ using $\delta^{(l)} = ((\theta^{(l)})^T\delta^{(l+1)}).*a^{(l)}.*(1-a^{(l)})$
-- $\Delta_{i,j}^{(l)}:=\Delta_{i,j}^{(l)}+a_j^{(l)}\delta_i^{(l+1)}$ or with vectorization, $\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T
+- $\Delta_{i,j}^{(l)}:=\Delta_{i,j}^{(l)}+a_j^{(l)}\delta_i^{(l+1)}$ or with vectorization, $\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T$
 - $D_{i,j}^{(l)}:=\frac{1}{m}(\Delta_{i,j}^{(l)} + \lambda\theta_{i,j}^{(l)})$ if $j\not ={0}$
 - $D_{i,j}^{(l)} := \frac{1}{m}\Delta_{i,j}^{(l)}$ if $j\not ={0}$
 
@@ -222,4 +222,4 @@ for i = 1:m,
 
 ## BP Proof
 
-TODO
+Please check the [BP Prove PDF](BP_Prove.pdf).
