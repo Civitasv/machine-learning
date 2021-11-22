@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="machine-learning-week-1">Machine Learning Week 1</h1>
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+    <h2 id="introduction">Introduction</h2>
+    <h3 id="what-is-machine-learning">What is Machine Learning?</h3>
+    <p>Two difinitions are offered.</p>
+    <ol>
+      <li>
+        The field of study that gives computers the ability to learn without
+        being explicitly programmed. -&gt; by Arthur Samuel
+      </li>
+      <li>
+        A computer program is said to learn from experience E with respect to
+        some class of tasks T and performance measure P, if its performance at
+        tasks in T, as measured by P, improves with experience E. -&gt; by Tom
+        Mitchell
+      </li>
+    </ol>
+    <p>For example, the playing checkers program:</p>
+    <p>E: the experience of playing many games of checkers</p>
+    <p>T: the task of playing checkers</p>
+    <p>P: the probability that the program will win the next game</p>
+    <p>
+      Machine Learing problem contains two broad categories: Supervised Learning
+      and Unsupervised Learning
+    </p>
+    <h3 id="supervised-learning">Supervised Learning</h3>
+    <p>
+      The essential difference between Supervised Learning and Unsupervised
+      Learning is the formal has a known data set. The data set has the input
+      and output, and we know the relationship between them.
+    </p>
+    <p>
+      Supervised Learning have two categories: regression and classification.
+    </p>
+    <p>
+      In a regression problem, we are trying to predict results within a
+      <strong>continuous</strong> function, but in a classfication problem, we
+      are trying to predict results in a discrete output.
+    </p>
+    <p><strong>Example:</strong></p>
+    <p>
+      Suppose we have the dataset of the size of houses on the real estate
+      market, the task is to predict their price. Price as a function of size is
+      apparently continuous, so this is a regression problem.
+    </p>
+    <p>
+      We could turn this example into a classfication problem by instead making
+      our output abount whether the house &quot;sells for more or less than the
+      asking price&quot;. Here we are classifying the houses based on price into
+      two discrete categories.
+    </p>
+    <h3 id="unsupervised-learning">Unsupervised Learning</h3>
+    <p>
+      Unsupervised Learning, on the other hand, allow us to approach problems
+      with little or no idea what our results should look like. We can derive
+      structure from data where we don't necessarily know the effect of the
+      variables.
+    </p>
+    <p>
+      We can derive this structure by clustering the data based on
+      releationships among the variables in the data.
+    </p>
+    <p>
+      With unsupervised learning there is no feedback based on the prediction
+      results. You can't really know if it is correct.
+    </p>
+    <p><strong>Example:</strong></p>
+    <p>
+      Clustering: Take a collection of 1000 essays written on the US Economy,
+      and find a way to automatically group these essays into a small number
+      that are somehow similatr or related by different variables, such as word
+      frequency, sentence length, page count and so on.
+    </p>
+    <p>
+      Non-clustering: The &quot;Cocktail Party Algorithm&quot;, which can find
+      structure in messy data(such as the identification of individual voices
+      and music from a mesh of sounds at a cocktail party).
+    </p>
+    <h2 id="linear-regression-with-one-variable">
+      Linear Regression with One Variable
+    </h2>
+    <h3 id="model-representation">Model Representation</h3>
+    <p>
+      Recall that <em>regression problems</em>, we are taking input variables
+      and trying to fit the output onto a <em>continuous</em> expected result
+      function.
+    </p>
+    <p>
+      Linear regression with one variable is also known as &quot;univariate
+      linear regression.&quot;
+    </p>
+    <p>
+      Univariate linear regression is used when you want to predict a
+      <strong>single output</strong> value y from a
+      <strong>single input</strong> value x. Obviously, we're doing
+      <strong>supervised learning</strong>.
+    </p>
+    <h4 id="the-hypothesis-function">The Hypothesis Function</h4>
+    <p>Our hypothesis function has the general form:</p>
+    <p>$$h_\theta(x) = \theta_0 + \theta_1 x$$</p>
+    <p>
+      By specifying the $\theta_0$ and $\theta_1$, we can get our estimated
+      output $h_\theta(x)$.
+    </p>
+    <p>
+      Then, Apparently, every $h_\theta(x)$ is a hypothesis, and what we want to
+      get is the best fit function.
+    </p>
+    <h3 id="cost-function">Cost Function</h3>
+    <p>
+      We can measure the accuracy of the hypothesis function by using a
+      <strong>cost function</strong>. This takes an average of all the results
+      of the hypothesis with inputs from x's compared to the actual output y's.
+    </p>
+    <p>
+      $$J(\theta_0, \theta_1) =
+      \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x_i)-y_i)^2$$
+    </p>
+    <p>
+      To break it apart, it is $\frac{1}{2}\bar{x}$ where $\bar{x}$ is the mean
+      of the squares of $h_\theta(x_i)-y_i$, or the difference between the
+      predicted value and the actual value.
+    </p>
+    <p>
+      This function also called the &quot;Squared error function&quot;, or
+      &quot;Mean squared error&quot;. The $\frac{1}{2m}$ is for the computation
+      of the gradient descent, as the derivative term of the square function
+      will cancel out the $\frac{1}{2}$.
+    </p>
+    <p>
+      Now we are able to concretely measure the accuracy of our predictor
+      function against the correct results we have so that we can predict new
+      results we don't have.
+    </p>
+    <p>
+      If we try to think of it in visual terms, our training data set is
+      scattered on the x-y plane. We are trying to make straight line(defined by
+      $h_\theta(x)$) which passes through this scattered set of data. Our
+      objective is to get the best possible line. The best possible line will be
+      such so that the average squared vertical distances of the scattered
+      points from the line will be the least.
+    </p>
+    <h3 id="gradient-descent">Gradient Descent</h3>
+    <p>
+      Now that we have the hypothesis function and the cost function which is
+      used to measure how well it fits into data set. We still need a way to
+      estimate the parameters in hypothesis function. So the Gradient Descent
+      comes in.
+    </p>
+    <p>
+      Given the paramters of our hypothesis function, we can get the value of
+      the cost function. And the goal is to get the smallest value of our cost
+      function. The way we do this is by taking the derivative(the tangential
+      line to a function) of our cost function. The slope of the tangent is the
+      derivative at that point and it will give us a direction to move towards.
+      We make steps down the cost function in the direction with the steepest
+      descent, and the size of each step is determined by the parameter
+      $\alpha$, which is called the learning rate.
+    </p>
+    <p>The gradient descent algorithm is:</p>
+    <p>repeat until convergence:</p>
+    <p>
+      $$\theta_j:=\theta_j-\alpha \frac{\partial}{\partial \theta_j}
+      J(\theta_0,\theta_1)$$
+    </p>
+    <p>where $j=0,1$</p>
+    <h4 id="gradient-descent-for-linear-regression">
+      Gradient Descent for Linear Regression
+    </h4>
+    <p>
+      When specially applied to the case of linear regression, a new form of the
+      gradient descent equation can be derived. We can substitute our actual
+      cost function and our actual hypothesis funtion and modify the equation
+      to:
+    </p>
+    <p>repeat until convergence: {</p>
+    <p>
+      $$\theta_0:=\theta_0−\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x_i)-y_i)$$
+      $$\theta_1:=\theta_1−\alpha\frac{1}{m}\sum_{i=1}^m((h_\theta(x_i)-y_i)x_i)$$
+      }
+    </p>
+    <p>
+      where $m$ is the size of the traing set, $\theta_0$ and $\theta_1$ will be
+      changing simultaneously, $x_i$ and $y_i$ are values of the given training
+      set.
+    </p>
+    <p>
+      The point of all this is that if we start with a guess for our hypothesis
+      and then repeatedly apply these gradient descent equations, our hypothesis
+      will become more and more accurate.
+    </p>
+    <h2 id="linear-algebra-review">Linear Algebra Review</h2>
+    <p>
+      This chapter introduces some basic ideas of linear algebra, including:
+    </p>
+    <ol>
+      <li>the difinition of matrix and vector.</li>
+      <li>addition and scalar multiplication.</li>
+      <li>matrix-vector multiplication.</li>
+      <li>matrix-matrix multiplication.</li>
+      <li>
+        matrix multiplication properties, such as not commutative and
+        associative.
+      </li>
+      <li>matrix inverse and transpose.</li>
+    </ol>
+  </body>
+</html>

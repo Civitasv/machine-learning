@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="machine-learning-week-2">Machine Learning Week 2</h1>
+    <h2 id="linear-regression-with-multiple-variables">
+      Linear Regression with Multiple Variables
+    </h2>
+    <p>
+      Linear Regression with Multiple Variables is also known as
+      &quot;multivariate linear regression&quot;.
+    </p>
+    <p>
+      We now introduce notation for equations where we can have any number of
+      input variables.
+    </p>
+    <ol>
+      <li>$x_j^{(i)}$: value of feature j in the $i^{th}$ training example.</li>
+      <li>
+        $x^{(i)}$: the column vector of all the feature inputs of the $i^{th}$
+        training example.
+      </li>
+      <li>$m$: the number of training examples.</li>
+      <li>$n$: the number of features.</li>
+    </ol>
+    <p>Follow the rules above, we can form the hypothesis function as below:</p>
+    <p>$$h_\theta(x) = \theta_0+\theta_1x_1+\theta_2x_2+...+\theta_nx_n$$</p>
+    <p>
+      In order to develop intuition about this function, we can think the
+      $\theta_0$ as the basic, $\theta_1$ as the value per first factor,
+      $\theta_2$ as the value per second factor, ..., $\theta_n$ as the value
+      per $n_{th}$ factor. $x_1$ as the first factor, $x_2$ as the second floor,
+      ..., $x_n$ as the $n_{th}$ floor.
+    </p>
+    <p>
+      Using the definition of matrix multiplication, our multivariable
+      hypothesis function can be concisely represented as:
+    </p>
+    <p>
+      $$ h_\theta(x) = [\theta_0 \ \theta_1 \ \theta_2 \ ... \theta_n]\left[
+      \begin{matrix} x_0 \ x_1 \ x_2 \end{matrix} \right] = \theta^Tx $$
+    </p>
+    <p>
+      Note that for convenience reasons in this course Mr.Ng assumes $x_0^{(i)}
+      = 1$ for $(i\in1,...,m)$
+    </p>
+    <p>The training examples are stored in X row-wise, like such:</p>
+    <p>
+      $$ X = \left[\begin{matrix} x_0^{(1)} \ x_1^{(1)} \ x_0^{(2)} \ x_1^{(2)}
+      \ x_0^{(3)} \ x_1^{(3)}\end{matrix} \right], \theta = \left[
+      \begin{matrix} \theta_0 \ \theta_1\end{matrix}\right] $$
+    </p>
+    <p>
+      With this definition above, we can calculate the hypothesis as a column
+      vector of size (m*1) with:
+    </p>
+    <p>$$h_\theta(X) = X\theta$$</p>
+    <p>X represents a matrix of training examples $x^{(i)}$ stored row-wise.</p>
+    <h3 id="cost-function">Cost Function</h3>
+    <p>For the paramter vector $\theta$, the cost function is:</p>
+    <p>
+      $$J(\theta) = \frac{1}{2m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)})^2$$
+    </p>
+    <p>We can also form the cost funtion in vector version:</p>
+    <p>$$J(\theta) = \frac{1}{2m}(X\theta-\vec{y})^T(X\theta-\vec{y})$$</p>
+    <p>which $\vec{y}$ indicates the vector of all y values.</p>
+    <h3 id="gradient-descent-for-multiple-variables">
+      Gradient Descent for Multiple Variables
+    </h3>
+    <p>
+      The gradient descent equation itself is generally the same form, we just
+      have to repeat it for our n features:
+    </p>
+    <p>
+      repeat until convergence:{ $$\theta_0 := \theta_0 -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}-y^{(i)})*x_0^{(i)}$$
+      $$\theta_1 := \theta_1 -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}-y^{(i)})*x_1^{(i)}$$
+      $$\theta_2 := \theta_2 -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}-y^{(i)})*x_2^{(i)}$$ ...
+    </p>
+    <p>}</p>
+    <p>In other words:</p>
+    <p>
+      repeat until convergence:{ $$\theta_j := \theta_j -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}-y^{(i)})*x_j^{(i)}$$
+    </p>
+    <p>for j:=0..n</p>
+    <p>}</p>
+    <h3 id="matrix-notation">Matrix Notation</h3>
+    <p>The Gradient Descent rule can be expressed as:</p>
+    <p>$$\theta:=\theta-\alpha\nabla J(\theta)$$</p>
+    <p>where $\nabla J(\theta)$ is a column vector of the form:</p>
+    <p>
+      $$ \nabla J(\theta) = \left[\begin{matrix} \frac{\partial
+      J(\theta)}{\partial \theta_0} \frac{\partial J(\theta)}{\partial
+      \theta_1}...\frac{\partial J(\theta)}{\partial \theta_n}
+      \end{matrix}\right] $$
+    </p>
+    <p>
+      And apparentlly the j-th component of the gradient is the summation of the
+      product of two terms:
+    </p>
+    <p>
+      $$\frac{\partial J(\theta)}{\partial \theta_j} =
+      \frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}$$
+    </p>
+    <p>
+      Here, $x_j^{(i)}$, for i=1,..,m, represents the m elements of the j-th
+      column, thus $\vec{x_j}$, of the training set X.
+    </p>
+    <p>
+      The other term $h_\theta(x^{(i)})-y^{(i)}$ is the vector of the deviations
+      between the predictions $h_\theta(x^{(i)})$ and the true values $y^{(i)}$.
+      Re-writing $\frac{\partial J(\theta)}{\partial \theta_j}$ ,we have:
+    </p>
+    <p>
+      $$\frac{\partial J(\theta)}{\partial \theta_j} =
+      \frac{1}{m}\vec{x_j}(X\theta-\vec{y})$$
+    </p>
+    <p>$$\nabla J(\theta) = \frac{1}{m}X^T(X\theta - \vec{y})$$</p>
+    <p>Finally, the matrix notation of the Gradient Descent rule is:</p>
+    <p>$$\theta:=\theta-\frac{\alpha}{m}X^T(X\theta-\vec{y})$$</p>
+    <h3 id="feature-normalization">Feature Normalization</h3>
+    <p>
+      We can speed up gradient descent by having each of our input values in
+      roughly the same range. This is because $\theta$ will descend quickly on
+      small ranges and slowly on large ranges, and so will oscillate
+      inefficiently down to the optimum when the variables are very uneven.
+    </p>
+    <p>
+      The way to prevent this is to modify the ranges of our input variables so
+      that they are all roughly the same range. Ideally:
+    </p>
+    <p>$$-1\le x_j \le1$$</p>
+    <p>
+      To be clear, the range don't have to be exactly between -1 and 1, we are
+      only trying to speed things up. The goal is to get all input variables
+      into roughly the same range.
+    </p>
+    <p>
+      There are two techniques to help with this are
+      <strong>feature scaling</strong> and <strong>mean normalization</strong>.
+      Feature scaling involves dividing the input values by the range of the
+      input variable, resulting a new range of just 1. Mean normalization
+      involves subtracting the average value for an input variable from the
+      values for that input variable, resulting a new average value for the
+      input variable of just 0. To implement both of these techniques, adjust
+      your input values as shown in this formula:
+    </p>
+    <p>$$x_j := \frac{x_j-\mu_j}{s_j}$$</p>
+    <p>
+      where $\mu_j$ is the average of all the values for feature j and $s_j$ is
+      the range of values(max-min or standard deviation).
+    </p>
+    <p>
+      Note that dividing by the range, or dividing by the standard deviation,
+      give different results. The quizzes in this course use range - the
+      programming exercises use standard deviation.
+    </p>
+    <h3 id="gradient-descent-tips">Gradient Descent Tips</h3>
+    <p>
+      <strong>Debugging gradient descent.</strong> Make a plot with number of
+      iterations on the x-axis. Now plot the cost function, $J(\theta)$ over the
+      number of iterations of gradient descent. If $J(\theta)$ ever increases,
+      then you probably need to decrease $\alpha$.
+    </p>
+    <p>
+      <strong>Automatic convergence test.</strong> Declare convergence if
+      $J(\theta)$ decreases by less than E in one iteration, where E is some
+      small value such as $10^{-3}$ . However in practice it's difficult to
+      choose this threshold value.
+    </p>
+    <p>
+      It has been proven that if learning rate $\alpha$ is suffciently small,
+      then $J(\theta)$ will decrease on every iteration.
+    </p>
+    <h3 id="features-and-polynomial-regression">
+      Features and Polynomial Regression
+    </h3>
+    <p>
+      We can improve our features and the form of our hypothesis function in a
+      couple different ways.
+    </p>
+    <p>
+      We can <strong>combine</strong> multiple features into one. For example,
+      we can combine $x_1$ and $x_2$ into a new feature $x_3$ by taking
+      $x_1x_2$.
+    </p>
+    <h4 id="polynomial-regression">Polynomial Regression</h4>
+    <p>
+      Our hypothesis function need not be linear (a straight line) if that does
+      not fit the data well.
+    </p>
+    <p>
+      We can <strong>change the behavior or curve</strong> of our hypothesis
+      function by making it a quadratic, cubic or square root function(or any
+      other form).
+    </p>
+    <p>
+      For example, if our hypothesis function is $h_\theta(x) = \theta_0 +
+      \theta_1 x$ the we can create additional features based on $x_1$, to get
+      the quadratic function or the cubic function.
+    </p>
+    <p>
+      One important thing to keep in mind is, if you choose your features this
+      way then feature scaling becomes very important.
+    </p>
+    <p>
+      eg. if $x_1$ has range 1 - 1000 then range of $x_1^2$ becomes 1 - 1000000
+      and that of $x_1^3$ becomes 1 - 1000000000.
+    </p>
+    <h2 id="normal-equation">Normal Equation</h2>
+    <p>
+      The &quot;Normal Equation&quot; is a method of finding the optimum theta
+      <strong>without iteration</strong>.
+    </p>
+    <p>$$\theta=(X^TX)^{-1}X^Ty$$</p>
+    <p>
+      There is <strong>no need</strong> to do feature scaling with the normal
+      equation.
+    </p>
+    <p>
+      Mathematical proof of the Normal equation requires knowledge of linear
+      algebra and is fairly involved, so you do not need to worry about the
+      details.
+    </p>
+    <p>Proofs are available at these links for those who are interested:</p>
+    <p>
+      <a href="https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)"
+        >https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)</a
+      >
+    </p>
+    <p>
+      <a
+        href="http://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression"
+        >http://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression</a
+      >
+    </p>
+    <p>
+      The following is a comparison of gradient descent and the normal equation:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">Gradient Descent</th>
+          <th style="text-align: center">Normal Equation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center">Need to choose alpha</td>
+          <td style="text-align: center">No need to choose alpha</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">Needs many iterations</td>
+          <td style="text-align: center">No need to iterate</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">$O(kn^2)$</td>
+          <td style="text-align: center">
+            $O(n^3)$, cause need to calcute inverse of $X^TX$
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">Works well when n is large</td>
+          <td style="text-align: center">Slow if n is very large</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      With the normal equation, computing the inversion has complexity $O(n^3)$,
+      So if we have a very large number of features, the normal equation will be
+      slow. In practice, when n exceeds 10,000 it might be a good time to go
+      from a normal solution to an iterative process.
+    </p>
+    <h3 id="normal-equation-noninvertibility">
+      Normal Equation Noninvertibility
+    </h3>
+    <p>
+      When implementing the normal equation in octave we want to use the 'pinv'
+      function rather than the 'inv'.
+    </p>
+    <p>$X^TX$ may be <strong>noninvertible</strong>. The common causes are:</p>
+    <ul>
+      <li>Redundant features, where two features are very closely related</li>
+      <li>
+        Too many features(m&lt;=n). In this case, delete some features or use
+        &quot;regularization&quot;(to be explained in a later lesson).
+      </li>
+    </ul>
+    <p>
+      In fact, the deep reason is that there is no solution to the function
+      group.
+    </p>
+  </body>
+</html>

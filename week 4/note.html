@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="machine-learning-week-4">Machine Learning Week 4</h1>
+    <h2 id="neural-networks-representation">Neural Networks: Representation</h2>
+    <h3 id="non-linear-hypotheses">Non-linear Hypotheses</h3>
+    <p>
+      Performing linear regression with a complex set of data with many features
+      is very unwieldy. Say you wanted to create a hypothesis from three
+      features that included all the quadratic terms:
+    </p>
+    <p>
+      $g(\theta_0+\theta_1x_1^2+\theta_2x_1x_2+\theta_3x_1x_3+\theta_4x_2^2+\theta_5x_2x_3+\theta_6x_3^2)$
+    </p>
+    <p>
+      That gives us 6 features. And for 100 features, if we want to make them
+      quadratic we would get 5050 resulting new features.
+    </p>
+    <p>
+      We can approximate the growth of the number of new features we get with
+      all quadratic terms with $O(\frac{n^2}{2})$. The features would grow
+      asymptotically at $O(n^3)$ if we want to include all the cubic terms.
+      These are very steep growths, so as the number of our features increase,
+      the number of quadratic or cubic features increase very rapidly and
+      becomes quickly impractical.
+    </p>
+    <p>
+      Example: let our training set be a collection of 50 x 50 pixel
+      black-and-white photographs, and our goal will be to classify which ones
+      are photos of cars. Our feature set size is then n = 2500 if we compare
+      every pair of pixels.
+    </p>
+    <p>
+      Now let's say we need to make a quadratic hypothesis function. With
+      quadratic features, our total features will be about $2500^2 / 2 =
+      3125000$.which is very impractical.
+    </p>
+    <p>
+      Thus, Neural networks offers an alternate way to perform machine leanring
+      when we have complex hypotheses with many features.
+    </p>
+    <h3 id="neurons-and-the-brain">Neurons and the Brain</h3>
+    <p>
+      Neural networks are limited imitations of how our own brains work. They've
+      had a big recent resurgence because of advances in computer hardware.
+    </p>
+    <p>
+      There is evidence that the brain uses only one &quot;learning
+      algorithm&quot; for all its different functions. Scientists have tried
+      cutting (in an animal brain) the connection between the ears and the
+      auditory cortex and rewiring the optical nerve with the auditory cortex to
+      find that the auditory cortex literally learns to see.
+    </p>
+    <p>
+      This principle is called &quot;neuroplasticity&quot; and has many examples
+      and experimental evidence.
+    </p>
+    <h3 id="model-representation-i">Model Representation I</h3>
+    <p>
+      At a very simple level, neurons are basically computational units that
+      take input as electrical input that are channeled to outputs.
+    </p>
+    <p>
+      In our model, our inputs are like the input features $x_1,x_2,...,x_n$,
+      and the output is the result of our hypothesis function.
+    </p>
+    <p>
+      Attention that our $x_0$ input node is called &quot;bias unit&quot; and it
+      is always equal to 1.
+    </p>
+    <p>
+      In neural networks, we use the same logistic function as in
+      classification: $\frac{1}{1+e^{-\theta^Tx}}$. In neural networks however
+      we sometimes call it a sigmoid activation function.
+    </p>
+    <p>
+      Our &quot;theta&quot; parameters are sometimes instead called
+      &quot;weights&quot; in the neural networks model.
+    </p>
+    <p>Visually, a simplistic representation looks like:</p>
+    <p><img src="images/neuron model.png" alt="neuron model" /></p>
+    <p>
+      Our input nodes (layer 1) go into another node (layer 2), and are output
+      as the hypothesis function.
+    </p>
+    <p>
+      The first layer is called the &quot;input layer&quot; and the final layer
+      is called the &quot;output layer&quot;, which gives the final value
+      computed on the hypothesis.
+    </p>
+    <p>
+      We can have intermediate layers of nodes between the input and output
+      layers called the &quot;hidden layer&quot;.
+    </p>
+    <p>
+      We label these intermediate or hidden later nodes $a_0^2,..,a_n^2$ and
+      call them &quot;activation units&quot;.
+    </p>
+    <p>$a_i^{(j)}$: &quot;activation&quot; of unit i in layer j</p>
+    <p>
+      $\theta^{(j)}$: matrix of weights controlling function mapping from layer
+      j to layer j+1
+    </p>
+    <p>If we had one hidden layer, it would look visually something like:</p>
+    <p><img src="images/one hidden layer.png" alt="one hidden layer" /></p>
+    <p>
+      The values for each of the &quot;activation&quot; nodes is obtained as
+      follows:
+    </p>
+    <p>
+      $a_1^{(2)} = g(\theta_{10}^{(1)}x_0 + \theta_{11}^{(1)}x_1 +
+      \theta_{12}^{(1)}x_2 + \theta_{13}^{(1)}x_3)$
+    </p>
+    <p>
+      $a_2^{(2)} = g(\theta_{20}^{(1)}x_0 + \theta_{21}^{(1)}x_1 +
+      \theta_{22}^{(1)}x_2 + \theta_{23}^{(1)}x_3)$
+    </p>
+    <p>
+      $a_3^{(2)} = g(\theta_{30}^{(1)}x_0 + \theta_{31}^{(1)}x_1 +
+      \theta_{32}^{(1)}x_2 + \theta_{33}^{(1)}x_3)$
+    </p>
+    <p>
+      $h_\theta(x) = a_1^{(3)} = g(\theta_{10}^{(2)}a_0^{(2)} +
+      \theta_{11}^{(2)}a_1^{(2)} + \theta_{12}^{(2)}a_2^{(2)} +
+      \theta_{13}^{(2)}a_3^{(2)})$
+    </p>
+    <p>The dimension of the $\theta^{(j)}$ is determined as follows:</p>
+    <p>
+      if network has $s_j$ units in layer j and $s_{j+1}$ units in layer j+1,
+      then $\theta_{(j)}$ will be of dimension $s_{j+1} \times (s_j+1)$.
+    </p>
+    <p>
+      The +1 comes from the addition in $\theta_{(j)}$ of the bias nodes, $x_0$
+      and $\theta_0^{(j)}$. In other words the output nodes will not include the
+      bias nodes while the inputs will.
+    </p>
+    <h3 id="model-representation-ii">Model Representation II</h3>
+    <p>
+      In this section we'll do a vectorized implementation of the above
+      functions. We're going to define a new variable $z_k^{(j)}$ that
+      encompasses the parameters inside our g function.
+    </p>
+    <p>$a_1^{(2)} = g(z_1^{(2)})$</p>
+    <p>$a_2^{(2)} = g(z_2^{(2)})$</p>
+    <p>$a_3^{(2)} = g(z_3^{(2)})$</p>
+    <p>In other words, for layer j=2 and node k, the variable z will be:</p>
+    <p>
+      $z_k^{(2)} = \theta_{k,0}^{(1)}x_0 + \theta_{k,1}^{(1)}x_1 + ... +
+      \theta_{k,n}^{(1)}x_n$
+    </p>
+    <p>The vector representation of x and $z^j$ is:</p>
+    <p>
+      $x = \left [ \begin{matrix} x_0 \ x_1 \ ... \ x_n \end{matrix} \right ]$
+      $z^{(j)} = \left [ \begin{matrix} z_1^{(j)} \ z_2^{(j)} \ ... \ z_n^{(j)}
+      \end{matrix} \right ]$
+    </p>
+    <p>Setting $x = a^{(1)}$, we can rewrite the equation as:</p>
+    <p>$z^{(j)} = \theta^{(j-1)}a^{(j-1)}$</p>
+    <p>
+      We can the add a bias unit to layer j after we have computed $a^{(j)}$.
+      This will be element $a_0^{(j)}$ and will be equal to 1.
+    </p>
+    <p>
+      To compute our final hypothesis, let's first compute another z vector:
+    </p>
+    <p>$z^{(j+1)} = \theta^{(j)}a^{(j)}$</p>
+    <p>We then get our final result with:</p>
+    <p>$h_\theta(x) = a^{(j+1)} = g(z^{(j+1)}$</p>
+    <p>
+      Notice that in this <strong>last step</strong>, between layer j and layer
+      j+1, we are doing <strong>exactly the same thing</strong> as we did in
+      logistic regression.
+    </p>
+    <p>
+      Adding all these intermediate layers in neural networks allows us to more
+      elegantly produce interesting and more complex non-linear hypotheses.
+    </p>
+    <h2 id="multiclass-classification">Multiclass Classification</h2>
+    <p>
+      To classify data into multiple classes, we let our hypothesis function
+      return a vector of values. Say we wanted to classify our data into one of
+      four final resulting classes:
+    </p>
+    <p>
+      $\left [ \begin{matrix} x_0 \ x_1 \ ... \ x_n \end{matrix} \right ]$
+      $\rightarrow$ $\left [ \begin{matrix} a_0^{(2)} \ a_1^{(2)} \ ... \
+      a_n^{(2)} \end{matrix} \right ]$ $\rightarrow$ $\left [ \begin{matrix}
+      a_0^{(3)} \ a_1^{(3)} \ ... \ a_n^{(3)} \end{matrix} \right ]$
+      $\rightarrow$ $\left [ \begin{matrix} h_\theta(x)<em>1 \ h</em
+      >\theta(x)<em>2\ ... \ h</em>\theta(x)_n \end{matrix} \right ]$
+    </p>
+    <p>
+      Our final layer of nodes, when multiplied by its theta matrix, will result
+      in another vector, on which we will apply the g() logistic function to get
+      a vector of hypothesis values.
+    </p>
+    <p>Our resulting hypothesis for one set of inputs may look like:</p>
+    <p>
+      $h_\theta(x) = \left [ \begin{matrix} 0 \ 0 \ 1 \ 0 \end{matrix} \right ]$
+    </p>
+    <p>In which case our resulting class is the third one down.</p>
+    <p>We can define our set of resulting classes as y:</p>
+    <p>
+      $y^{(i)} \in \left [ \begin{matrix} 1 \ 0 \ 0 \ 0 \end{matrix} \right ]$,
+      $\left [ \begin{matrix} 0 \ 1 \ 0 \ 0 \end{matrix} \right ]$, $\left [
+      \begin{matrix} 0 \ 0 \ 1 \ 0 \end{matrix} \right ]$, $\left [
+      \begin{matrix} 0 \ 0 \ 0 \ 1 \end{matrix} \right ]$
+    </p>
+    <p>
+      Our final value of our hypothesis for a set of inputs will be one of the
+      elements in y.
+    </p>
+  </body>
+</html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="machine-learning-week-3">Machine Learning Week 3</h1>
+    <h2 id="classification-and-representation">
+      Classification and Representation
+    </h2>
+    <p>
+      Now we are switching from regression problems to
+      <strong>classification problems.</strong> Don't be confused by the name
+      &quot;Logistic Regression&quot;; it is named that way for historical
+      reasons and is actually an approach to classification problems, not
+      regression problems.
+    </p>
+    <h3 id="binary-classification">Binary Classification</h3>
+    <p>
+      Instead of our output vector y being a continuous range of values, it will
+      only be 0 or 1.
+    </p>
+    <p>$y\in{0,1}$</p>
+    <p>
+      Where 0 is usually taken as the &quot;negative class&quot; and 1 as the
+      &quot;positive class&quot;, but you are free to assign any representation
+      to it.
+    </p>
+    <p>
+      One method is to use linear regression and map all predictions greater
+      than 0.5 as a 1 and all less than 0.5 as a 0. This method doesn't work
+      well because classification is not actually a linear function.
+    </p>
+    <p>Our hypothesis should satisfy:</p>
+    <p>$0\le h_\theta(x) \le 1$</p>
+    <p>
+      Our new form uses the &quot;Sigmoid Function&quot;, also called the
+      &quot;Logistic Function&quot;:
+    </p>
+    <p>$h_\theta(x) = g(\theta^Tx)$</p>
+    <p>$z = \theta$</p>
+    <p>$g(z) = \frac{1}{1+e^{-z}}$</p>
+    <p><img src="images/logistic_function.png" alt="logistic function" /></p>
+    <p>
+      The function g(z), shown here, maps any real number to the (0, 1)
+      interval, making it useful for transforming an arbitrary-valued function
+      into a function better suited for classification.
+    </p>
+    <p>
+      Then $h_\theta(x)$ will give us the <strong>probability</strong> that our
+      output is 1. For example, $h_\theta(x) = 0.7$ gives us the probability of
+      70% that our output is 1.
+    </p>
+    <p>$h_\theta(x) = P(y=1|x;\theta) = 1-P(y=0|x;\theta)$</p>
+    <p>$P(y=0|x;\theta)+P(y=1|x;\theta) = 1$</p>
+    <h3 id="decision-boundary">Decision Boundary</h3>
+    <p>
+      In order to get our discrete 0 or 1 classification, we can translate the
+      output of the hypothesis function as follows:
+    </p>
+    <p>$h_\theta(x) \ge 0.5 \rightarrow y=1$</p>
+    <p>$h_\theta(x) &lt; 0.5 \rightarrow y=0$</p>
+    <p>
+      The way our logistic function g behaves is that when its input is greater
+      than or equal to zero, its output is greater than or equal to 0.5:
+    </p>
+    <p>$g(z) \ge 0.5 \ when \ z \ge 0$</p>
+    <p>So if pur input to g is $\theta^TX$, then that means:</p>
+    <p>$h_\theta(x) = g(\theta^Tx)\ge0.5 \ when \ \theta^Tx \ge 0$</p>
+    <p>From these statements we can now say:</p>
+    <p>$\theta^Tx \ge 0 \rightarrow y=1 \ \theta^Tx &lt; 0 \rightarrow y=0$</p>
+    <p>
+      The decision boundary is the line that separates the area where y = 0 and
+      where y = 1. It is created by our hypothesis function.
+    </p>
+    <h2 id="logistic-regression-model">Logistic Regression Model</h2>
+    <h3 id="cost-function">Cost Function</h3>
+    <p>
+      We cannot use the same cost function that we use for linear regression
+      because the Logistic Function will cause the output to be wavy, causing
+      many local optima. In other words, it will not be a convex function.
+    </p>
+    <p>Instead, our cost function for logistic regression looks like:</p>
+    <p>$J(\theta) = \frac{1}{m}\sum_{i=1}^mCost(h_\theta(x^{(i)},y^{(i)})$</p>
+    <p>
+      $Cost(h_\theta(x),y) = -log(h_\theta(x)) \ if \ y=1\ Cost(h_\theta(x),y) =
+      -log(1-h_\theta(x)) \ if \ y=0$
+    </p>
+    <p>
+      The more our hypothesis is off from y, the larger the cost function
+      output. If our hypothesis is equal to y, then our cost is 0:
+    </p>
+    <p>
+      $Cost(h_\theta(x),y) = 0 \ if \ h_\theta(x) = y \ Cost(h_\theta(x),y)
+      \rightarrow \infty \ if \ y = 0 \ and \ h_\theta(x) \rightarrow 1 \
+      Cost(h_\theta(x),y) \rightarrow \infty \ if \ y = 1 \ and \ h_\theta(x)
+      \rightarrow 0$
+    </p>
+    <p>
+      Note that writing the cost function in this way guarantees that
+      $J(\theta)$ is convex for logistic regression.
+    </p>
+    <h3 id="simplified-cost-function-and-gradient-descent">
+      Simplified Cost Function and Gradient Descent
+    </h3>
+    <p>
+      We can compress our cost function's two conditional cases into one case:
+    </p>
+    <p>$Cost(h_\theta(x),y) = -ylog(h_\theta(x)) - (1-y)log(1-h_\theta(x))$</p>
+    <p>So that our cost function will be:</p>
+    <p>
+      $J(\theta) = -\frac{1}{m}\sum_{i=1}^m[y^{(i)}log(h_\theta(x^{(i)})) +
+      (1-y^{(i)})log(1-h_\theta(x^{(i)}))]$
+    </p>
+    <p>A vectorized implementation is:</p>
+    <p>
+      $h = g(X\theta) \ J(\theta) = \frac{1}{m}(-y^Tlog(h) - (1-y)^Tlog(1-h))$
+    </p>
+    <h4 id="gradient-descent">Gradient Descent</h4>
+    <p>Remember that the general form of gradient descent is:</p>
+    <p>
+      $Repeat { \ \theta_j := \theta_j - \alpha
+      \frac{\partial}{\partial\theta_j}J(\theta)\ }$
+    </p>
+    <p>We can work out the derivative part using calculus to get:</p>
+    <p>
+      $Repeat { \ \theta_j := \theta_j - \frac {\alpha}{m}
+      \sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}\ }$
+    </p>
+    <p>
+      Notice that this algorithm is identical to the one we used in linear
+      regression. We still have to simultaneously update all values in theta.
+    </p>
+    <p>A vectorized implementation is:</p>
+    <p>$\theta:=\theta-\frac{\alpha}{m}X^T(g(X\theta)-\vec{y})$</p>
+    <h3 id="advanced-optimization">Advanced Optimization</h3>
+    <p>
+      &quot;Conjugate gradient&quot;, &quot;BFGS&quot;, and &quot;L-BFGS&quot;
+      are more sophisticated, faster ways to optimize θ that can be used instead
+      of gradient descent. A. Ng suggests not to write these more sophisticated
+      algorithms yourself (unless you are an expert in numerical computing) but
+      use the libraries instead, as they're already tested and highly optimized.
+      Octave and matlab both provide them.
+    </p>
+    <p>
+      To use advanced optimization, we first need to provide a function that
+      evaluates the following two functions for a given input value $\theta$:
+    </p>
+    <p>$J(\theta) \ \frac{\partial}{\partial\theta_j}J(\theta)$</p>
+    <p>We can write a single function that returns both of these:</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[jVal, gradient]</span> = <span class="hljs-title">costFunction</span><span class="hljs-params">(theta)</span></span>
+  jVal = [...code to compute J(theta)...];
+  gradient = [...code to compute derivative of J(theta)...];
+<span class="hljs-keyword">end</span>
+</div></code></pre>
+    <p>
+      Then we can use the <strong>fminunc()</strong> optimization algorithm
+      along with the <strong>optimset()</strong> function that create an object
+      containing the options we want to send to <strong>fminunc</strong>.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div>options = optimset(<span class="hljs-string">'GradObj'</span>, <span class="hljs-string">'on'</span>, <span class="hljs-string">'MaxIter'</span>, <span class="hljs-number">100</span>);
+      initialTheta = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);
+      [optTheta, functionVal, exitFlag] = fminunc(@costFunction, initialTheta, options);
+</div></code></pre>
+    <p>
+      We give to the function &quot;fminunc()&quot; our cost function, our
+      initial vector of theta values, and the &quot;options&quot; object that we
+      created beforehand.
+    </p>
+    <h3 id="multiclass-classification-one-vs-all">
+      Multiclass Classification: One-vs-all
+    </h3>
+    <p>
+      Now we will approach the classification of data into more than two
+      categories. Instead of y={0,1}, we will expand our definition so that
+      y={0,1,...,n}.
+    </p>
+    <p>
+      In this case we divide our problem into n+1 binary classification
+      problems; in each one, we predict the probability that 'y' is a member of
+      one of our classes.
+    </p>
+    <p>
+      $y\in {0,1,...,n} \ h_\theta^{(0)} = P(y=0|x;\theta) \ h_\theta^{(1)} =
+      P(y=1|x;\theta) \ ... \ h_\theta^{(n)} = P(y=n|x;\theta) \ prediction =
+      max_i(h_\theta^{(i)}(x))$
+    </p>
+    <p>
+      We are basically choosing one class and then lumping all the others into a
+      single second class. We do this repeatedly, applying binary logistic
+      regression to each case, and then use the hypothesis that returned the
+      highest value as our prediction.
+    </p>
+    <h2 id="regularization">Regularization</h2>
+    <p>
+      <strong>The Problem of Overfitting:</strong> High bias or underfitting is
+      when the form of our hypothesis function h maps poorly to the trend of the
+      data. It is usually caused by a function that is too simple or uses too
+      few features. eg. if we take $h_\theta(x) =
+      \theta_0+\theta_1x_1+\theta_2x_2$ then we are making an initial assumption
+      that a linear model will fit the training data well and will be able to
+      generalize but actually that may not be the case.
+    </p>
+    <p>
+      At the other extreme, overfitting or high variance is caused by a
+      hypothesis function that fits the avaliable data but does not generalize
+      well to predict new data. It is usually caused by a complicated function
+      that creates a lot of unnecessary curves and angles unrelated to the data.
+    </p>
+    <p>
+      This terminology is applied to both linear and logistic regression. There
+      are two main options to address the issue of overfitting:
+    </p>
+    <ol>
+      <li>
+        <p>Reduce the number of features:</p>
+        <p>a) Manually select which features to keep.</p>
+        <p>b) Use a model selection algorithm(studied later in the course).</p>
+      </li>
+      <li>
+        <p>Regularization</p>
+      </li>
+    </ol>
+    <p>Keep all the features, but reduce the parameters $\theta_j$.</p>
+    <p>
+      Regularization works well when we have a lot of slightly useful features.
+    </p>
+    <h3 id="regularized-linear-regression">Regularized Linear Regression</h3>
+    <p>
+      We can apply regularization to both linear regression and logistic
+      regression. We will approach linear regression first.
+    </p>
+    <h4 id="cost-function">Cost Function</h4>
+    <p>
+      If we have overfitting from our hypothesis function, we can reduce the
+      weight that some of the terms on our function carry by increasing their
+      cost.
+    </p>
+    <p>Say we wanted to make the following function more quadratic:</p>
+    <p>$\theta_0+\theta_1x+\theta_2x^2+\theta_3x^3+\theta_4x^4$</p>
+    <p>
+      We'll want to eliminate the influence of $\theta_3x^3$ and $\theta_4x^4$.
+      Without actually getting rid of these features or changing the form of our
+      hypothesis, we can instead modify our cost function:
+    </p>
+    <p>
+      $min_\theta \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})^2 +
+      1000\theta^3+1000\theta^4$
+    </p>
+    <p>
+      We've added two extra terms at the end to inflate the cost of $\theta_3$
+      and $\theta_4$. Now, in order for the cost function to get close to zero,
+      we will have to reduce the values of $\theta_3$ and $\theta_4$ to near
+      zero.
+    </p>
+    <p>
+      Using this method, we could also regularize all of our theta parameters in
+      a single summation:
+    </p>
+    <p>
+      $min_\theta\frac{1}{2m}[\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2+\lambda\sum_{j=1}^n\theta_j^2]$
+    </p>
+    <p>
+      The λ, or lambda, is the regularization parameter. It determines how much
+      the costs of our theta parameters are inflated. You can visualize the
+      effect of regularization in this interactive plot :
+      <a href="https://www.desmos.com/calculator/1hexc8ntqp"
+        >https://www.desmos.com/calculator/1hexc8ntqp</a
+      >
+    </p>
+    <p>
+      Using the above cost function with the extra summation, we can smooth the
+      output of our hypothesis function to reduce overfitting. If lambda is
+      chosen to be too large, it may smooth out the function too much and cause
+      underfitting.
+    </p>
+    <h4 id="gradient-descent">Gradient Descent</h4>
+    <p>
+      We will modify our gradient function to separate out $\theta_0$ from the
+      rest of the parameters because we do not want to penalize $\theta_0$.
+    </p>
+    <p>
+      $Repeat { \ \theta_0 := \theta_0 -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_0^{(i)} \
+      \theta_j := \theta_j -
+      \alpha[(\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+\frac{\lambda}{m}\theta_j]
+      \ \ j \in {1,2,...,n} \ }$
+    </p>
+    <p>The term $\frac{\lambda}{m}\theta_j$ performs our regularization.</p>
+    <p>With some manipulation our update rule can also be represented as:</p>
+    <p>
+      $\theta_j := \theta_j(1-\alpha\frac{\lambda}{m}) -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}$
+    </p>
+    <p>
+      The first term in the above equation, $1-\alpha\frac{\lambda}{m}$ will
+      always be less than 1. Intuitively you can see it as reducing the value of
+      $\theta_j$ by some amount on every update.
+    </p>
+    <p>Notice that the second term is now exactly the same as it was before.</p>
+    <h3 id="normal-equation">Normal Equation</h3>
+    <p>
+      Now let's approach regularization using the alternate method of the
+      non-iterative normal equation.
+    </p>
+    <p>
+      To add in regularization, the equation is the same as our original, except
+      that we add another term inside the parentheses:
+    </p>
+    <p>
+      $\theta = (X^TX+\lambda L)^{-1}X^Ty \ where \ L =\left [ \begin{matrix} 0
+      &amp; &amp;&amp; &amp;&amp;\ &amp; 1 &amp;&amp;&amp;&amp; \ &amp; &amp;
+      1&amp;&amp;&amp; \ &amp;&amp;&amp;.&amp;&amp; \ &amp;&amp;&amp;&amp;.&amp;
+      \ &amp;&amp;&amp;&amp;&amp;1 \ \end{matrix} \right]$
+    </p>
+    <p>
+      L is a matrix with 0 at the top left and 1's down the diagonal, with 0's
+      everywhere else. It should have dimension (n+1)×(n+1). Intuitively, this
+      is the identity matrix (though we are not including $x_0$), multiplied
+      with a single real number λ.
+    </p>
+    <p>
+      Recall that if $m \le n$, then $X^TX$ is non-invertible. However, when we
+      add the term $\lambda L$, then $X^TX+\lambda L$ becomes invertible.
+    </p>
+    <h3 id="regularized-logistic-regression">
+      Regularized Logistic Regression
+    </h3>
+    <p>
+      We can regularized logistic regression in a similar way that we regularize
+      linear regression. Let's start with the cost function.
+    </p>
+    <h4 id="cost-function">Cost Function</h4>
+    <p>Recall that our cost function for logistic regression was:</p>
+    <p>
+      $J(\theta) = -\frac{1}{m}\sum_{i=1}^m[y^{(i)}log(h_\theta(x^{(i)})) +
+      (1-y^{(i)})log(1-h_\theta(x^{(i)}))]$
+    </p>
+    <p>We can regularized this equation by adding a term to the end:</p>
+    <p>
+      $J(\theta) = -\frac{1}{m}\sum_{i=1}^m[y^{(i)}log(h_\theta(x^{(i)})) +
+      (1-y^{(i)})log(1-h_\theta(x^{(i)}))] +
+      \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2$
+    </p>
+    <h4 id="gradient-descent">Gradient Descent</h4>
+    <p>
+      Just like with linear regression, we will want to separately update
+      $\theta_0$ and the rest of the parameters because we do not want to
+      regularize $\theta_0$.
+    </p>
+    <p>
+      $Repeat { \ \theta_0 := \theta_0 -
+      \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_0^{(i)} \
+      \theta_j := \theta_j -
+      \alpha[(\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+\frac{\lambda}{m}\theta_j]
+      \ \ j \in {1,2,...,n} \ }$
+    </p>
+    <p>
+      This is identical to the gradient descent function presented for linear
+      regression.
+    </p>
+  </body>
+</html>

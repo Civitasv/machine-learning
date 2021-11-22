@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="machine-learning-week-5">Machine Learning Week 5</h1>
+    <h2 id="neural-networks-learning">Neural Networks: Learning</h2>
+    <h3 id="cost-function">Cost Function</h3>
+    <p><strong>DEFINE TERMS:</strong></p>
+    <ol>
+      <li>L: total number of layers in the network</li>
+      <li>$s_l$: number of units(not including bias unit) in layer l</li>
+      <li>K: number of output units/classes</li>
+    </ol>
+    <p>
+      Recall that in neural networks, we may have many output nodes. We denote
+      $h_\theta(x)_k$ as being a hypothesis that results in the $k^{(th)}$
+      output.
+    </p>
+    <p>
+      Generally, Our cost function for neural networks is going to be a
+      generalization of the one we used for logistic regression.
+    </p>
+    <p>
+      <strong
+        >The cost function for regularized logistic regression was:</strong
+      >
+    </p>
+    <p>
+      $$J(\theta) = -\frac{1}{m}\sum_{i=1}^m[y^{(i)}log(h_\theta(x^{(i)})) +
+      (1-y^{(i)})log(1-h_\theta(x^{(i)}))] +
+      \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2$$
+    </p>
+    <p>
+      <strong
+        >For neural networks, it is going to be slightly more
+        complicated:</strong
+      >
+    </p>
+    <p>
+      $$J(\theta) =
+      -\frac{1}{m}\sum_{i=1}^m\sum_{k=1}^K[y^{(i)}<em>klog((h</em>\theta(x^{(i)}))<em
+        >k) + (1-y^{(i)}<em>k)log(1-(h</em>\theta(x^{(i)}))<em
+          >k)] + \frac{\lambda}{2m}\sum</em
+        >{l=1}^{L-1}\sum</em
+      >{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\theta_{j,i}^{(l)})^2$$
+    </p>
+    <p>
+      We have added a few nested summations to account for our multiple output
+      nodes. In the first part of the equation, between the square brackets, we
+      have an additional nested summation that loops through the number of
+      output nodes.
+    </p>
+    <p>
+      In the regularization part, after the square brackets, we must account for
+      multiple theta matrices. The number of columns in our current theta matrix
+      is equal to the number of nodes in our current layer(including the bias
+      unit). The number of rows in our current theta matrix is equal to the
+      number of nodes in the next layer(excluding the bias unit). As before we
+      did in logistic regression, we square every term.
+    </p>
+    <p><strong>Notes:</strong></p>
+    <ul>
+      <li>
+        the double sum simply adds up the logistic regression costs calculated
+        for each cell in the output layer; and
+      </li>
+      <li>
+        the triple sum simply adds up the squares of all the individual $\theta$
+        in the entire network.
+      </li>
+      <li>the i in the triple sum does not refer to training example i.</li>
+    </ul>
+    <h3 id="backpropagation-algorithm">Backpropagation Algorithm</h3>
+    <p>
+      Backpropagation is neural-network terminology for minimizing our cost
+      function, just like what we were doing with gradient descent in logistic
+      and linear regression.
+    </p>
+    <p>Our goal is to compute:</p>
+    <p>$min_\theta J(\theta)$</p>
+    <p>
+      That is, we want to minimize our cost function J using an optimal set of
+      parameters in theta.
+    </p>
+    <p>
+      In this section we'll look at the equations we use to compute the partial
+      derivative of $J(\theta)$:
+    </p>
+    <p>$\frac{\partial}{\partial\theta_{i,j}^{(l)}} J(\theta)$</p>
+    <p>In back propagation we're going to compute for every node:</p>
+    <p>$\delta_j^{(l)}$ : <strong>error</strong> of node j in layer l</p>
+    <p>Recall that $a_j^{(l)}$ is activation node j in layer l.</p>
+    <p>For the last layer, we can compute the vector of delta values with:</p>
+    <p>$\delta^{(L)} = a^{(L)} - y$</p>
+    <p>
+      Where L is our total number of layers and $a^{(L)}$ is the vector of
+      outputs of the activation units for the last layer. So our
+      <strong>error values</strong> for the last layer are simply the
+      differences of our actual results in the last layer and the correct
+      outputs in y.
+    </p>
+    <p>
+      And to get the delta values of the layers before the last layer, we can
+      use an equation that steps us back from right to left:
+    </p>
+    <p>$\delta^{(l)} = ((\theta^{(l)})^T\delta^{(l+1)}) .* g'(z^{(l)})$</p>
+    <p>
+      The delta values of layer l are calculated by multiplying the delta values
+      in the next layer with the theta matrix of layer l. We then element-wise
+      multiply that with a function called g', or g-prime, which is the
+      derivative of the activation function g evaluated with the input values
+      given by $z^{(l)}$.
+    </p>
+    <p>The g-prime derivative terms can also be written out as:</p>
+    <p>$g'(u) = g(u) .* (1-g(u))$</p>
+    <p>Then the full back prpagation equation for the inner nodes is:</p>
+    <p>
+      $\delta^{(l)} = ((\theta^{(l)})^T\delta^{(l+1)}) .<em>a^{(l)}.</em>
+      (1-a^{(l)})$
+    </p>
+    <p>
+      We can compute our partial derivative terms by multiplying our activation
+      values and our error values for each training example t:
+    </p>
+    <p>
+      $$\frac{\delta J(\theta)}{\delta\theta_{(i,j)}^{(l)}} =
+      \frac{1}{m}\sum_{t=1}^ma_j^{(t)(l)}\delta_i^{(t)(l+1)}$$
+    </p>
+    <p>This however ignores regularization, which we'll deal with later.</p>
+    <p>
+      Now we can take all these equations and put them together into a
+      backpropagation algorithm.
+    </p>
+    <h3 id="put-it-all-together">Put it all together</h3>
+    <p>Given training set ${(x^{(1)}, y^{(1)})...(x^{(m)},y^{(m)})}$</p>
+    <ul>
+      <li>set $\Delta_{i,j}^{(l)}:=0$ for all $(l,i,j)$</li>
+    </ul>
+    <p>For training example t=1 to m:</p>
+    <ul>
+      <li>set $a^{(1)} := x^{(t)}$</li>
+      <li>Perform forward propagation to compute $a^{(l)}$ for l=2,3,...,L</li>
+      <li>Using $y^{(t)}$, compute $\delta^{(L)} = a^{(L)} - y^{(t)}$</li>
+      <li>
+        Compute $\delta^{(L-1)}, \delta^{(L-2)},...,\delta^{2}$ using
+        $\delta^{(l)} =
+        ((\theta^{(l)})^T\delta^{(l+1)}).<em>a^{(l)}.</em>(1-a^{(l)})$
+      </li>
+      <li>
+        $\Delta_{i,j}^{(l)}:=\Delta_{i,j}^{(l)}+a_j^{(l)}\delta_i^{(l+1)}$ or
+        with vectorization, $\Delta^{(l)} := \Delta^{(l)} +
+        \delta^{(l+1)}(a^{(l)})^T$
+      </li>
+      <li>
+        $D_{i,j}^{(l)}:=\frac{1}{m}(\Delta_{i,j}^{(l)} +
+        \lambda\theta_{i,j}^{(l)})$ if $j\not ={0}$
+      </li>
+      <li>$D_{i,j}^{(l)} := \frac{1}{m}\Delta_{i,j}^{(l)}$ if $j\not ={0}$</li>
+    </ul>
+    <p>
+      The capital-delta matrix is used as an &quot;accumulator&quot; to add up
+      our values as we go along and eventually compute our partial derivative.
+    </p>
+    <p>
+      The actual proof is quite involved, but, the $D_{i,j}^{(l)}$ terms are the
+      partial derivatives and the results we are looking for:
+    </p>
+    <p>
+      $$D_{i,j}^{(l)} = \frac{\partial J(\theta)}{\partial\theta_{i,j}^{(l)}}$$
+    </p>
+    <h2 id="backpropagation-intuition">Backpropagation Intuition</h2>
+    <p>The cost function is:</p>
+    <p>
+      $$J(\theta) =
+      -\frac{1}{m}\sum_{i=1}^m\sum_{k=1}^K[y^{(i)}<em>klog((h</em>\theta(x^{(i)}))<em
+        >k) + (1-y^{(i)}<em>k)log(1-(h</em>\theta(x^{(i)}))<em
+          >k)] + \frac{\lambda}{2m}\sum</em
+        >{l=1}^{L-1}\sum</em
+      >{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\theta_{j,i}^{(l)})^2$$
+    </p>
+    <p>
+      If we consider simple non-multiclass classification(k=1) and disregard
+      regularization, the cost is computed with:
+    </p>
+    <p>
+      $$cost(t) = y^{(t)}log(h_\theta(x^{(t)})) +
+      (1-y^{(t)})log(1-h_\theta(x^{(t)}))$$
+    </p>
+    <p>More intuitively you can think of that equation roughly as:</p>
+    <p>$cost(t) ≈ (h_\theta(x^{(t)})-y^{(t)})^2$</p>
+    <p>
+      Intuitively, $\delta_j^{(l)}$ is the error for $a_j^{(l)}$(unit j in layer
+      l)
+    </p>
+    <p>
+      More formally, the delta values are actually the derivative of the cost
+      function:
+    </p>
+    <p>$\delta_j^{(l)} = \frac{\partial}{\partial z_j^{(l)}}cost(t)$</p>
+    <p>
+      Recall that our derivative is the slope of a line tangent to the cost
+      function, so the steeper the slope the more incorrect we are.
+    </p>
+    <h2 id="implementation-note-unrolling-parameters">
+      Implementation Note: Unrolling Parameters
+    </h2>
+    <p>With neural networks, we are working with sets of matrices:</p>
+    <p>$\theta^{(1)}, \theta^{(2)}, \theta^{(3)},...$</p>
+    <p>$D^{(1)}, D^{(2)}, D^{(3)},...$</p>
+    <p>
+      In order to use optimizing functions such as &quot;fminunc()&quot;, we
+      will want to &quot;unroll&quot; all the elements and put them into one
+      long vector:
+    </p>
+    <pre
+      class="hljs"
+    ><code><div>thetaVector = [ Theta1(:); Theta2(:); Theta3(:); ]
+deltaVector = [ D1(:); D2(:); D3(:) ]
+</div></code></pre>
+    <p>
+      If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11,
+      then we can get back our original matrices from the &quot;unrolled&quot;
+      versions as follows:
+    </p>
+    <pre
+      class="hljs"
+    ><code><div>Theta1 = <span class="hljs-built_in">reshape</span>(thetaVector(<span class="hljs-number">1</span>:<span class="hljs-number">110</span>),<span class="hljs-number">10</span>,<span class="hljs-number">11</span>)
+Theta2 = <span class="hljs-built_in">reshape</span>(thetaVector(<span class="hljs-number">111</span>:<span class="hljs-number">220</span>),<span class="hljs-number">10</span>,<span class="hljs-number">11</span>)
+Theta3 = <span class="hljs-built_in">reshape</span>(thetaVector(<span class="hljs-number">221</span>:<span class="hljs-number">231</span>),<span class="hljs-number">1</span>,<span class="hljs-number">11</span>)
+</div></code></pre>
+    <h2 id="gradient-checking">Gradient Checking</h2>
+    <p>
+      Gradient checking will assure that our backpropagation works as intended.
+    </p>
+    <p>We can approximate the derivative of our cost function with:</p>
+    <p>
+      $\frac{\partial}{\partial \theta}J(\theta) \approx
+      \frac{J(\theta+\epsilon)-J(\theta-\epsilon)}{2\epsilon}$
+    </p>
+    <p>
+      With multiple theta matrices, we can approximate the derivative with
+      respect to $\theta_j$ as follows:
+    </p>
+    <p>
+      $\frac{\partial}{\partial\theta_j}J(\theta) \approx
+      \frac{J(\theta_1,...,\theta_j+\epsilon,...,\theta_n)-J(\theta_1,...,\theta_j-\epsilon,...,\theta_n)}{2\epsilon}$
+    </p>
+    <p>
+      A good small value for $\epsilon$ guarantees the math above to become
+      true. If the value be much smaller, may we will end up with numerical
+      problems. The professor Andrew usually uses the value $\epsilon =
+      10^{-4}$.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div>epsilon = <span class="hljs-number">1e-4</span>;
+<span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>:n,
+  thetaPlus = theta;
+  thetaPlus(<span class="hljs-built_in">i</span>) += epsilon;
+  thetaMinus = theta;
+  thetaMinus(<span class="hljs-built_in">i</span>) -= epsilon;
+  gradApprox(<span class="hljs-built_in">i</span>) = (J(thetaPlus) - J(thetaMinus))/(<span class="hljs-number">2</span>*epsilon)
+<span class="hljs-keyword">end</span>;
+</div></code></pre>
+    <p>We then want to check that gradApprox ≈ deltaVector.</p>
+    <p>
+      Once you've verified once that your backpropagation algorithm is correct,
+      then you don't need to compute gradApprox again. The code to compute
+      gradApprox is very slow.
+    </p>
+    <h2 id="random-initialization">Random Initialization</h2>
+    <p>
+      Initializing all theta weights to zero does not work with neural networks.
+      When we backpropagate, all nodes will update to the same value repeatedly.
+    </p>
+    <p>Instead we can randomly initialize our weights:</p>
+    <p>
+      Initialize each $\theta_{i,j}^{(l)}$ to a random value between
+      $[-\epsilon, \epsilon]$:
+    </p>
+    <p>$\epsilon = \frac{\sqrt{6}}{L_{output}+L_{input}}$</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-comment">% If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11.</span>
+
+Theta1 = <span class="hljs-built_in">rand</span>(<span class="hljs-number">10</span>,<span class="hljs-number">11</span>) * (<span class="hljs-number">2</span> * INIT_EPSILON) - INIT_EPSILON;
+Theta2 = <span class="hljs-built_in">rand</span>(<span class="hljs-number">10</span>,<span class="hljs-number">11</span>) * (<span class="hljs-number">2</span> * INIT_EPSILON) - INIT_EPSILON;
+Theta3 = <span class="hljs-built_in">rand</span>(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>) * (<span class="hljs-number">2</span> * INIT_EPSILON) - INIT_EPSILON;
+</div></code></pre>
+    <h2 id="steps">Steps</h2>
+    <p>
+      First, pick a network architecture; choose the layout of your neural
+      network, including how many hidden units in each layer and how many layers
+      total.
+    </p>
+    <ul>
+      <li>Number of input units = dimension of features $x^{(i)}$</li>
+      <li>Number of output units = number of classes</li>
+      <li>
+        Number of hidden units per layer = usually more the better (must balance
+        with cost of computation as it increases with more hidden units)
+      </li>
+      <li>
+        Defaults: 1 hidden layer. If more than 1 hidden layer, then the same
+        number of units in every hidden layer.
+      </li>
+    </ul>
+    <p><strong>Training a Neural Network:</strong></p>
+    <ol>
+      <li>Randomly initialize the weights</li>
+      <li>Implement forward propagation to get $h_\theta(x^{(i)})$</li>
+      <li>Implement the cost function</li>
+      <li>Implement backpropagation to compute partial derivatives</li>
+      <li>
+        Use gradient checking to confirm that your backpropagation works. Then
+        disable gradient checking.
+      </li>
+      <li>
+        Use gradient descent or a built-in optimization function to minimize the
+        cost function with the weights in theta.
+      </li>
+    </ol>
+    <p>
+      When we perform forward and back propagation, we loop on every training
+      example:
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span> = <span class="hljs-number">1</span>:m,
+   Perform forward propagation and backpropagation using example (x(<span class="hljs-built_in">i</span>),y(<span class="hljs-built_in">i</span>))
+   (Get activations a(l) and delta terms d(l) <span class="hljs-keyword">for</span> l = <span class="hljs-number">2</span>,...,L
+</div></code></pre>
+    <h2 id="bp-proof">BP Proof</h2>
+    <p>Please check the <a href="BP_Prove.pdf">BP Prove PDF</a>.</p>
+  </body>
+</html>
