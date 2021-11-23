@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <script
+      type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+    </script>
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="machine-learning-week-6">Machine Learning Week 6</h1>
+    <h2 id="advice-for-applying-machine-learning">
+      Advice for Applying Machine Learning
+    </h2>
+    <h2 id="deciding-what-to-try-next">Deciding What to Try Next</h2>
+    <p>Errors in your predictions can be troubleshooted by:</p>
+    <ul>
+      <li>Getting more training examples</li>
+      <li>Trying smaller sets of features</li>
+      <li>Trying additional features</li>
+      <li>Trying polynomial features</li>
+      <li>Increasing or decreasing $\lambda$</li>
+    </ul>
+    <p>
+      It's not proper to pick one of these avenues at random. Following we'll
+      explore techiniques for choosing one of the above solutions.
+    </p>
+    <h2 id="evaluating-a-hypothesis">Evaluating a Hypothesis</h2>
+    <p>
+      A hypothesis may have low error for the training examples but still be
+      inaccurate(because of overfitting).
+    </p>
+    <p>
+      With a given dataset of training examples, we can split up the data into
+      two sets: a <strong>training set</strong> and a <strong>test set</strong>.
+    </p>
+    <p>The new procedure using these two sets is then:</p>
+    <ol>
+      <li>
+        Learn $\theta$ and minimize $J_{train}(\theta)$ using the training set
+      </li>
+      <li>Compute the test set error $J_{test}(\theta)$</li>
+    </ol>
+    <p><strong>TEST SET ERROR:</strong></p>
+    <ol>
+      <li>
+        For linear regression: $J_{test}(\theta) =
+        \frac{1}{2m_{test}}\sum_{i=1}^{m_{test}}(h_\theta(x_{test}^{(i)}-y_{test}^{(i)})^2$
+      </li>
+      <li>
+        For classification~Misclassification error(aka 0/1 misclassification
+        error): $err(h_\theta(x), y)$ equals 1 if $h_\theta(x) \ge 0.5 \ and \
+        y=0$ or $h_\theta(x) &lt; 0.5 \ and \ y=1$, This gives us a binary 0 or
+        1 error result based on a misclassification. Then The average test error
+        for the test set is
+        $\frac{1}{m_{test}}\sum_{i=1}^{m_{test}}err(h_\theta(x_{test}^{(i)},y_{test}^{(i)})$,
+        which gives us the proportion of the test data that was misclassified.
+      </li>
+    </ol>
+    <h2 id="model-selection-and-trainvalidationtest-sets">
+      Model Selection and Train/Validation/Test Sets
+    </h2>
+    <ul>
+      <li>
+        Just because a learning algorithm fits a training set well, that does
+        not mean it is a good hypothesis.
+      </li>
+      <li>
+        The error of your hypothesis as measured on the data set with which you
+        trained the parameters will be lower than any other data set.
+      </li>
+    </ul>
+    <p>
+      In order to choose the model of your hypothesis, you can test each degree
+      of polynomial and look at the error result.
+    </p>
+    <p>
+      <strong
+        >Without the Validation Set (note: this is a bad method - do not use
+        it):</strong
+      >
+    </p>
+    <ol>
+      <li>
+        <p>
+          Optimize the parameters in Θ using the training set for each
+          polynomial degree.
+        </p>
+      </li>
+      <li>
+        <p>
+          Find the polynomial degree d with the least error using the test set.
+        </p>
+      </li>
+      <li>
+        <p>
+          Estimate the generalization error also using the test set with
+          $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower
+          error);
+        </p>
+      </li>
+    </ol>
+    <p>
+      In this case, we have trained one variable, d, or the degree of the
+      polynomial, using the test set. This will cause our error value to be
+      greater for any other set of data.
+    </p>
+    <h3 id="use-of-the-cv-set">Use of the CV set</h3>
+    <p>
+      To solve this, we can introduce a third set, the
+      <strong>Cross Validation Set</strong>, to serve as an intermediate set
+      that we can train d with. Then our test set will give us an accurate,
+      non-optimistic error.
+    </p>
+    <p>One example way to break down our dataset into the three sets is:</p>
+    <ul>
+      <li>Training set: 60%</li>
+      <li>Cross validation set: 20%</li>
+      <li>
+        Test set: 20%We can now calculate three separate error values for the
+        three different sets.
+      </li>
+    </ul>
+    <p>
+      <strong
+        >With the Validation Set (note: this method presumes we do not also use
+        the CV set for regularization):</strong
+      >
+    </p>
+    <ol>
+      <li>
+        Optimize the parameters in Θ using the training set for each polynomial
+        degree.
+      </li>
+      <li>
+        Find the polynomial degree d with the least error using the cross
+        validation set.
+      </li>
+      <li>
+        Estimate the generalization error using the test set with
+        $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower error);
+      </li>
+    </ol>
+    <p>
+      This way, the degree of the polynomial d has not been trained using the
+      test set.
+    </p>
+    <p>
+      (Mentor note: be aware that using the CV set to select 'd' means that we
+      cannot also use it for the validation curve process of setting the lambda
+      value).
+    </p>
+    <h2 id="diagnosing-bias-vs-variance">Diagnosing Bias vs. Variance</h2>
+    <p>
+      In this section we examine the relationship between the degree of the
+      polynomial d and the underfitting or overfitting of our hypothesis.
+    </p>
+    <ul>
+      <li>
+        We need to distinguish whether bias or variance is the problem
+        contributing to bad predictions.
+      </li>
+      <li>
+        High bias is underfitting and high variance is overfitting. We need to
+        find a golden mean between these two.
+      </li>
+    </ul>
+    <p>
+      The training error will tend to decrease as we increase the degree d of
+      the polynomial.
+    </p>
+    <p>
+      At the same time, the cross validation error will tend to decrease as we
+      increase d up to a point, and then it will increase as d is increased,
+      forming a convex curve.
+    </p>
+    <p>
+      <strong>High bias (underfitting):</strong> both $J_{train}(\theta)$ and
+      $J_{CV}(\theta)$ will be high. Also, $J_{CV}(\theta) \approx
+      J_{train}(\theta)$.
+    </p>
+    <p>
+      <strong>High variance (overfitting):</strong> $J_{train}(\theta)$ will be
+      low and $J_{CV}(\theta)$ will be much greater than $J_{train}(\theta)$.
+    </p>
+    <p>That two sides are represented in the figure below:</p>
+    <p>
+      <img
+        src="images/Features-and-polynom-degree.png"
+        alt="Features-and-polynom-degree"
+      />
+    </p>
+    <h2 id="regularization-and-biasvariance">
+      Regularization and Bias/Variance
+    </h2>
+    <p>
+      Instead of looking at the degree d contributing to bias/variance, now we
+      will look at the regularization parameter λ.
+    </p>
+    <ul>
+      <li>Large λ: High bias (underfitting)</li>
+      <li>Intermediate λ: just right</li>
+      <li>Small λ: High variance (overfitting)</li>
+    </ul>
+    <p>
+      A large lambda heavily penalizes all the Θ parameters, which greatly
+      simplifies the line of our resulting function, so causes underfitting.
+    </p>
+    <p>
+      The relationship of λ to the training set and the variance set is as
+      follows:
+    </p>
+    <ul>
+      <li>
+        <strong>Low λ:</strong> $J_{train}(\theta)$ is low and $J_{CV}(\theta)$
+        is high, which cause high variance(overfitting).
+      </li>
+      <li>
+        <strong>Intermediate λ:</strong> $J_{train}(\theta)$ and
+        $J_{CV}(\theta)$ are somewhat low and $J_{train}(\theta) \approx
+        J_{CV}(\theta)$.
+      </li>
+      <li>
+        <strong>Large λ:</strong> both $J_{train}(\theta)$ and $J_{CV}(\theta)$
+        will be high, which cause high bias(underfitting).
+      </li>
+    </ul>
+    <p>
+      The figure below illustrates the relationship between lambda and the
+      hypothesis:
+    </p>
+    <p>
+      <img
+        src="images/Features-and-polynom-degree-fix.png"
+        alt="Features-and-polynom-degree-fix.png"
+      />
+    </p>
+    <p>In order to choose the model and the regularization λ, we need:</p>
+    <ol>
+      <li>
+        Create a list of lambdas (i.e.
+        λ∈{0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24});
+      </li>
+      <li>
+        Create a set of models with different degrees or any other variants.
+      </li>
+      <li>
+        Iterate through the λs and for each λ go through all the models to learn
+        some Θ.
+      </li>
+      <li>
+        Compute the cross validation error using the learned Θ (computed with λ)
+        on the $J_{CV}(\Theta)$ without regularization or λ = 0.
+      </li>
+      <li>
+        Select the best combo that produces the lowest error on the cross
+        validation set.
+      </li>
+      <li>
+        Using the best combo Θ and λ, apply it on $J_{test}(\Theta)$ to see if
+        it has a good generalization of the problem.
+      </li>
+    </ol>
+    <h2 id="learning-curves">Learning Curves</h2>
+    <p>
+      Training 3 examples will easily have 0 errors because we can always find a
+      quadratic curve that exactly touches 3 points.
+    </p>
+    <ul>
+      <li>
+        As the training set gets larger, the error for a quadratic function
+        increases.
+      </li>
+      <li>
+        The error value will plateau out after a certain m, or traing set size.
+      </li>
+    </ul>
+    <p><strong>With high bias:</strong></p>
+    <p>
+      <strong>Low training set size:</strong> causes $J_{train}(\Theta)$ to be
+      low and $J_{CV}(\Theta)$ to be high.
+    </p>
+    <p>
+      <strong>Large training set size:</strong> causes both $J_{train}(\Theta)$
+      and $J_{CV}(\Theta)$ to be high with $J_{train}(\Theta) \approx
+      J_{CV}(\Theta)$.
+    </p>
+    <p>
+      If a learning algorithm is suffering from <strong>high bias</strong>,
+      getting more training data
+      <strong>will not (by itself) help much</strong>.
+    </p>
+    <p>
+      For high variance, we have the following relationships in terms of the
+      training set size:
+    </p>
+    <p><strong>With high variance:</strong></p>
+    <p>
+      <strong>Low training set size:</strong> $J_{train}(\Theta)$ will be low
+      and $J_{CV}(\Theta)$ will be high.
+    </p>
+    <p>
+      <strong>Large training set size:</strong> $J_{train}(\Theta)$ increases
+      with training set size and $J_{CV}(\Theta)$ continues to decrease without
+      leveling off. Also, $J_{train}(\Theta) &lt; J_{CV}(\Theta)$ but the
+      difference between them remains significant.
+    </p>
+    <p>
+      If a learning algorithm is suffering from <strong>high variance</strong>,
+      getting more training data is <strong>likely to help</strong>.
+    </p>
+    <p><img src="images/Learning2.png" alt="Learning2" /></p>
+    <p><img src="images/Learning1.png" alt="Learning1" /></p>
+    <h2 id="deciding-what-to-do-next-revisited">
+      Deciding What to Do Next Revisited
+    </h2>
+    <p>Our decision process can be broken down as follows:</p>
+    <ul>
+      <li>Getting more training examples : Fixes high variance</li>
+      <li>Trying smaller sets of features: Fixes high variance</li>
+      <li>Adding features: Fixes high bias</li>
+      <li>Adding polynomial features: Fixes high bias</li>
+      <li>Decreasing $\lambda$: Fixes high bias</li>
+      <li>Increasing $\lambda$: Fixes high variance</li>
+    </ul>
+    <h3 id="diagnosing-neural-networks">Diagnosing Neural Networks</h3>
+    <ul>
+      <li>
+        A neural network with fewer parameters is
+        <strong>prone to underfitting</strong>, it is also
+        <strong>computationally cheaper</strong>.
+      </li>
+      <li>
+        A large neural network with more parameters is
+        <strong>prone to overfitting</strong>, it is also
+        <strong>computationally expensive</strong>. In this case you can use
+        regularization (increase $\lambda$) to address the overfitting.
+      </li>
+    </ul>
+    <p>
+      Using a single hidden layer is a good starting default. You can train your
+      neural network on a number of hidden layers using your cross validation
+      set.
+    </p>
+    <h3 id="model-selection">Model Selection</h3>
+    <p>Choosing M the order of polynomials.</p>
+    <p>
+      How can we tell which parameters Θ to leave in the model (known as
+      &quot;model selection&quot;)?
+    </p>
+    <p>There are several ways to solve this problem:</p>
+    <ul>
+      <li>Get more data (very difficult).</li>
+      <li>
+        Choose the model which best fits the data without overfitting (very
+        difficult).
+      </li>
+      <li>Reduce the opportunity for overfitting through regularization.</li>
+    </ul>
+    <p>
+      <strong
+        >Bias: approximation error (Difference between expected value and
+        optimal value):</strong
+      >
+    </p>
+    <ul>
+      <li>High Bias = UnderFitting(BU)</li>
+      <li>
+        $J_{train}(\theta)$ and $J_{CV}(\theta)$ both will be high and
+        $J_{train}(\theta) \approx J_{CV}(\theta)$
+      </li>
+    </ul>
+    <p><strong>Variance: estimation error due to finite data:</strong></p>
+    <ul>
+      <li>High Variance = OverFitting (VO)</li>
+      <li>
+        $J_{train}(\theta)$ is low and $J_{CV}(\theta) &gt;&gt;
+        J_{train}(\theta)$
+      </li>
+    </ul>
+    <p><strong>Intuition for the bias-variance trade-off:</strong></p>
+    <ul>
+      <li>
+        Complex model =&gt; sensitive to data =&gt; much affected by changes in
+        X =&gt; high variance, low bias.
+      </li>
+      <li>
+        Simple model =&gt; more rigid =&gt; does not change as much with changes
+        in X =&gt; low variance, high bias.
+      </li>
+    </ul>
+    <p>
+      One of the most important goals in learning: finding a model that is just
+      right in the bias-variance trade-off.
+    </p>
+    <p><strong>Regularization Effects:</strong></p>
+    <ul>
+      <li>
+        <p>
+          Small values of λ allow model to become finely tuned to noise leading
+          to large variance =&gt; overfitting.
+        </p>
+      </li>
+      <li>
+        <p>
+          Large values of λ pull weight parameters to zero leading to large bias
+          =&gt; underfitting.
+        </p>
+      </li>
+    </ul>
+    <p><strong>Model Complexity Effects:</strong></p>
+    <ul>
+      <li>
+        Lower-order polynomials (low model complexity) have high bias and low
+        variance. In this case, the model fits poorly consistently.
+      </li>
+      <li>
+        Higher-order polynomials (high model complexity) fit the training data
+        extremely well and the test data extremely poorly. These have low bias
+        on the training data, but very high variance.
+      </li>
+      <li>
+        In reality, we would want to choose a model somewhere in between, that
+        can generalize well but also fits the data reasonably well.
+      </li>
+    </ul>
+    <p><strong>A typical rule of thumb when running diagnostics is:</strong></p>
+    <ul>
+      <li>More training examples fixes high variance but not high bias.</li>
+      <li>Fewer features fixes high variance but not high bias.</li>
+      <li>Additional features fixes high bias but not high variance.</li>
+      <li>
+        The addition of polynomial and interaction features fixes high bias but
+        not high variance.
+      </li>
+      <li>
+        When using gradient descent, decreasing lambda can fix high bias and
+        increasing lambda can fix high variance (lambda is the regularization
+        parameter).
+      </li>
+      <li>
+        When using neural networks, small neural networks are more prone to
+        under-fitting and big neural networks are prone to over-fitting.
+        Cross-validation of network size is a way to choose alternatives.
+      </li>
+    </ul>
+  </body>
+</html>
