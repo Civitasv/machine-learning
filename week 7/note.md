@@ -140,4 +140,4 @@ if y=1, we want $p^{(i)}.||\theta||\ge1$
 
 if y=0, we want $p^{(i)}.||\theta||\le-1$
 
-The reason this causes a "large margin" is because: the vector for Θ is perpendicular to the decision boundary. In order for our optimization objective (above) to hold true, we need the absolute value of our projections $p^{(i)} $ to be as large as possible.
+The reason this causes a "large margin" is because: the vector for Θ is perpendicular to the decision boundary. In order for our optimization objective (above) to hold true, we need the absolute value of our projections $p^{(i)}$ to be as large as possible.
