@@ -67,9 +67,8 @@ $$
 
 A useful way to think about Support Vector Machines is to think of them as *Large Margin Classifiers*.
 
-If y = 1, we want $\theta^T x \ge 1$ (not just ≥0)
-
-If y = 0, we want $\theta^T x \le -1$ (not just <0)
+- If y = 1, we want $\theta^T x \ge 1$ (not just bigger or equal 0)
+- If y = 0, we want $\theta^T x \le -1$ (not just less than 0)
 
 Now when we set our constant C to a very large value (e.g. 100,000), our optimizing function will constrain Θ such that the equation A (the summation of the cost of each example) equals 0. We impose the following constraints on Θ:
 
@@ -93,7 +92,7 @@ This large margin is only achieved when **C is very large**.
 
 Data is **linearly separable** when a **straight line** can separate the positive and negative examples.
 
-If we have **outlier** examples that we don't want to affect the decision boundary, then we can **reduce** C.
+If we have **outlier** examples that we do not want to affect the decision boundary, then we can **reduce** C.
 
 Increasing and decreasing C is similar to respectively decreasing and increasing λ, and can simplify our decision boundary.
 
@@ -113,6 +112,15 @@ The projection of vector v onto vector u is found by taking a right angle from u
 - p=length of projection of v onto the vector u
 - $u^Tv = p.||u||$
 
+If n is large (relative to m), then use logistic regression, or SVM without a kernel (the "linear kernel")
+
+If n is small and m is intermediate, then use SVM with a Gaussian Kernel
+
+If n is small and m is large, then manually create/add more features, then use logistic regression or SVM without a kernel.
+
+In the first case, we don't have enough examples to need a complicated polynomial hypothesis. In the second example, we have enough examples that we may need a complex non-linear hypothesis. In the last case, we want to increase our features so that logistic regression becomes applicable.
+
+Note: a neural network is likely to work well for any of these situations, but may be slower to train.
 So that:
 
 $$
@@ -141,3 +149,89 @@ if y=1, we want $p^{(i)}.||\theta||\ge1$
 if y=0, we want $p^{(i)}.||\theta||\le-1$
 
 The reason this causes a "large margin" is because: the vector for Θ is perpendicular to the decision boundary. In order for our optimization objective (above) to hold true, we need the absolute value of our projections $p^{(i)}$ to be as large as possible.
+
+
+剑风传奇使我充分感受到了悲剧带来的怜悯、恐惧和生命力，在这个黑暗残酷的世界里，几乎所有人都绝望的死去，或祈祷神明，可格斯却高呼“不要祈祷，因为手上还有武器”。
+
+“人类的赞歌就是勇气的赞歌”
+
+## Kernels I
+
+**Kernels** allows us to make complex, non-linear classifiers using Support Vector Machines.
+
+Given x, compute new feature depending on proximity to landmarks $l^{(1)}, l^{(2)}, ..$.
+
+To do this, we find the "similarity" of x and some landmark $l^{(i)}$.
+
+$$
+f_i = similarity(x, l^{(i)}) = exp(-\frac{||x-l^{(i)}||^2}{2\sigma^2})
+$$
+
+The similarity function used above is called a **Gaussian Kernel**. It is a specific example of a kernel.
+
+## Kernels II
+
+One way to get the landmarks is to put them in the exact same location as all the training exampls. This gives us *m* landmarks, with one landmark per training example.
+
+Given example x:
+
+$$
+f_1 = similarity(x, l^{(1)}) \\
+f_2 = similarity(x, l^{(2)}) \\
+f_3 = similarity(x, l^{(3)})
+$$
+
+This gives us a "feature vector", $f^{(i)}$ of all our features for example $x^{(i)}$. We may also set $f^{(0)}=1$ to correspond with $\theta_0$. Thus given training example $x^{(i)}$:
+
+$$
+x^{(i)} → \\
+[f_1^{(i)} = similarity(x^{(i)}, l^{(1)}), f_2^{(i)}=similarity(x^{(i)}, l^{(2)}), f_m^{(i)} =similarity(x^{(i)}, l^{(m)})]
+$$
+
+Then we can use the SVM minimization algorithm with $f^{(i)}$.
+
+Note: It's possible to use kernels in logistic regression, but because of computional optimization on SVMs, kernels combined with SVMs is much faster than with other algorithms.
+
+## Choosing SVM parameters
+
+- if C is large, then we get higher variance/lower bias.
+- if C is small, then we get lower variance/higher bias.
+
+The other parameter we must choose is $\sigma^2$ from the Gaussian Kernel function:
+
+- With a large $\sigma^2$, the features fit more smoothly, causing higher bias and lower variance.
+- With a small $\sigma^2$, the features fit less smoothly, causing lower bias and higher variance.
+
+## Using An SVM
+
+There are lots of good SVM libraries already written. A. Ng often uses 'liblinear' and 'libsvm'. In practical application, you should use one of these libraries rather than rewrite the functions.
+
+In practical application, the choices you do need to make are:
+
+- Choice of parameter C
+- Choice of kernel (similarity function)
+- No kernel ("linear" kernel) -- gives standard linear classifier
+- Choose when n is large and when m is small
+- Gaussian Kernel (above) -- need to choose σ2σ^2σ2
+- Choose when n is small and m is large
+
+The library may ask you to provide the kernel function.
+
+Note: do perform feature scaling before using the Gaussian Kernel.
+
+Note: not all similarity functions are valid kernels. They must satisfy "Mercer's Theorem" which guarantees that the SVM package's optimizations run correctly and do not diverge.
+
+You want to train C and the parameters for the kernel function using the training and cross-validation datasets.
+
+## Logistic Regression vs SVMs
+
+If n is large (relative to m), then use logistic regression, or SVM without a kernel (the "linear kernel")
+
+If n is small and m is intermediate, then use SVM with a Gaussian Kernel
+
+If n is small and m is large, then manually create/add more features, then use logistic regression or SVM without a kernel.
+
+In the first case, we don't have enough examples to need a complicated polynomial hypothesis. In the second example, we have enough examples that we may need a complex non-linear hypothesis. In the last case, we want to increase our features so that logistic regression becomes applicable.
+
+Note: a neural network is likely to work well for any of these situations, but may be slower to train.
+
